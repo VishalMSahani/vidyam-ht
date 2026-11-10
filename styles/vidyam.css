@@ -1,0 +1,10 @@
+@theme {
+  --color-brand-highlight: #ff914d;
+  --color-brand-paper: #faf7f3;
+}
+
+:root {
+  --font-inter: "Inter", "SF Pro Display", "Segoe UI", Arial, sans-serif;
+  --color-background-full: var(--color-brand-paper);
+  --color-text-primary: #302a31;
+}
