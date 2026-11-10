@@ -41,9 +41,9 @@ export default function HomePage() {
   return (
     <>
       <section className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pb-16 pt-12 sm:px-8 md:pt-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:px-12 lg:pb-24 lg:pt-20">
-        <Reveal className="flex flex-col items-start gap-7">
-          <div className="flex items-center gap-3">
-            <span aria-hidden="true" className="h-0.5 w-7 rounded-full bg-brand-highlight" />
+        <Reveal className="flex flex-col items-start gap-5">
+          <div className="flex items-center gap-1">
+            {/* <span aria-hidden="true" className="h-0.5 w-7 rounded-full bg-brand-highlight" /> */}
             <p className="text-caption-1-semibold uppercase tracking-widest text-accent-700">Home tuition, thoughtfully matched</p>
           </div>
           <h1 className="max-w-2xl text-display-3-medium text-text-primary sm:text-display-2-medium xl:text-display-1-medium">
