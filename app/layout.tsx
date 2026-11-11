@@ -4,18 +4,27 @@ import "@/styles/vidyam.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://vidyamhometuition.in";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Vidyam Home Tuition | Personal tuition at home",
+    default: "Home Tuition in Mumbai | Vidyam Home Tuition",
     template: "%s | Vidyam Home Tuition",
   },
   description:
-    "Home tuition for nursery to class 12, school subjects, and exam preparation. Talk to Vidyam about finding a teacher who fits your learner.",
+    "Home tuition in Mumbai for nursery to class 12, school subjects and entrance exams. Ask Vidyam about a subject-focused teacher and a free trial.",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Vidyam Home Tuition",
-    description: "Thoughtful, subject-specific tuition at home.",
+    title: "Home Tuition in Mumbai | Vidyam Home Tuition",
+    description: "Subject-focused home tuition in Mumbai, from nursery to class 12 and entrance exam preparation.",
+    url: "/",
+    siteName: "Vidyam Home Tuition",
+    locale: "en_IN",
     type: "website",
+    images: [{ url: "/images/hero-mumbai.png", width: 1400, height: 933, alt: "A tutor helping a student learn at home in Mumbai" }],
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

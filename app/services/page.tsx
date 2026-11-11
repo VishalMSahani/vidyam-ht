@@ -7,8 +7,10 @@ import { TrialCta } from "@/components/trial-cta";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Home tuition services",
-  description: "Explore Vidyam home tuition for nursery to class 12, CBSE, ICSE, IB and state boards, plus JEE, NEET, MHT-CET and NDA preparation.",
+  title: "Home Tuition Services in Mumbai",
+  description: "Explore home tuition in Mumbai for nursery to class 12, CBSE, ICSE, IB and state boards, plus JEE, NEET, MHT-CET and NDA preparation.",
+  alternates: { canonical: "/services/" },
+  openGraph: { title: "Home Tuition Services in Mumbai", description: "School subject support and entrance exam preparation at home with Vidyam.", url: "/services/" },
 };
 
 const services = [

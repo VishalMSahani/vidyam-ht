@@ -29,6 +29,12 @@ npm run test:browser
 
 The build creates static HTML, CSS, JavaScript, and image files in `out/`. The browser check expects the dev server on port 3005 and tests all four pages at desktop and mobile widths.
 
+## Public URL and dashboard login
+
+The header's **Log in** button opens the separate Django dashboard. Locally it points to `http://127.0.0.1:8000/login/`; in production it points to `https://dashboard.vidyamhometuition.in/login/`. Set `NEXT_PUBLIC_DASHBOARD_LOGIN_URL` before building if your dashboard uses another address.
+
+The site exports `sitemap.xml` and `robots.txt` and gives each page its own title, description and canonical URL. Set `NEXT_PUBLIC_SITE_URL` to the final public origin, such as `https://vidyamhometuition.in`, before the production build. The default is that same domain. Rebuild and redeploy after changing either variable because this is a static export.
+
 ## Contact flow
 
 The contact form opens a prepared email in the visitor's mail app. The site has no submission backend, so it does not claim to send or store an enquiry. Phone and email links use the details provided for this project. The supplied email is `info@vidyamhometuition.in`; confirm its spelling before publishing.

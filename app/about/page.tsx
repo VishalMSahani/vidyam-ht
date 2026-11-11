@@ -7,8 +7,10 @@ import { TrialCta } from "@/components/trial-cta";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "About us",
-  description: "Get to know Vidyam Home Tuition and our approach to personal learning at home for school students and exam preparation.",
+  title: "About Our Mumbai Home Tuition",
+  description: "Learn how Vidyam Home Tuition helps Mumbai families find subject-focused teaching at home for schoolwork and entrance exam preparation.",
+  alternates: { canonical: "/about/" },
+  openGraph: { title: "About Vidyam Home Tuition", description: "Meet our approach to home tuition in Mumbai, shaped around each student and subject.", url: "/about/" },
 };
 
 export default function AboutPage() {

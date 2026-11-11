@@ -3,8 +3,10 @@ import { ContactForm } from "@/components/contact-form";
 import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
-  title: "Contact us",
-  description: "Ask Vidyam Home Tuition about classes, subjects, teacher availability and free trial sessions. Call or email our team.",
+  title: "Contact Us for Home Tuition in Mumbai",
+  description: "Ask Vidyam Home Tuition about your child’s class, subjects, teacher availability and a free trial in Mumbai. Call or email our team.",
+  alternates: { canonical: "/contact/" },
+  openGraph: { title: "Contact Vidyam Home Tuition", description: "Talk to us about home tuition in Mumbai and a free trial for your child.", url: "/contact/" },
 };
 
 export default function ContactPage() {
