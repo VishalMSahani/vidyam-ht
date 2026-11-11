@@ -110,7 +110,61 @@ try {
     await delay(250);
   }
   assert(menu.expanded === "true" && menu.visible, "Mobile navigation did not open");
-  console.log(JSON.stringify({ results: results.map(({ page, width, heading, overflow, brokenImages }) => ({ page, width, heading, overflow, brokenImages })), mobileMenu: menu, screenshots: artifacts }, null, 2));
+  await command("Emulation.setDeviceMetricsOverride", { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
+  await command("Page.navigate", { url: origin + "/" });
+  for (let attempt = 0; attempt < 20; attempt++) {
+    if (await evaluate(`document.readyState === 'complete' && !!document.querySelector('article[data-review-card]')`)) break;
+    await delay(250);
+  }
+  await evaluate(`window.scrollTo({ top: 0, behavior: 'instant' })`);
+  await delay(500);
+  const revealBefore = await evaluate(`getComputedStyle(document.querySelector('article')?.parentElement).opacity`);
+  await evaluate(`document.querySelector('article')?.scrollIntoView({ block: 'center', behavior: 'instant' })`);
+  let revealAfter;
+  for (let attempt = 0; attempt < 16; attempt++) {
+    await delay(150);
+    revealAfter = await evaluate(`getComputedStyle(document.querySelector('article')?.parentElement).opacity`);
+    if (Number(revealAfter) > 0.95) break;
+  }
+  assert(Number(revealBefore) < 0.1 && Number(revealAfter) > 0.95, `Scroll reveal did not animate into view; before ${revealBefore}, after ${revealAfter}`);
+  const revealShot = await command("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+  await writeFile(path.join(artifacts, "home-benefits-1440.png"), Buffer.from(revealShot.data, "base64"));
+
+  await evaluate(`document.querySelector('section[aria-label="Home tuition in Mumbai"]')?.scrollIntoView({ block: 'start', behavior: 'instant' })`);
+  await delay(300);
+  const expandBefore = await evaluate(`document.querySelector('section[aria-label="Home tuition in Mumbai"] [class*="clip-path"]')?.style.clipPath`);
+  await evaluate(`window.scrollBy({ top: innerHeight * 0.43, behavior: 'instant' })`);
+  await delay(600);
+  const expandAfter = await evaluate(`document.querySelector('section[aria-label="Home tuition in Mumbai"] [class*="clip-path"]')?.style.clipPath`);
+  assert(expandBefore !== expandAfter, "Scroll Expand frame did not respond to page scroll");
+  const expandedShot = await command("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+  await writeFile(path.join(artifacts, "home-scroll-expand-1440.png"), Buffer.from(expandedShot.data, "base64"));
+
+  await command("Emulation.setDeviceMetricsOverride", { width: 393, height: 852, deviceScaleFactor: 1, mobile: true });
+  await command("Page.navigate", { url: origin + "/" });
+  await delay(900);
+  await evaluate(`document.querySelector('#reviews-title')?.scrollIntoView({ block: 'start', behavior: 'instant' })`);
+  await delay(650);
+  const reviewShot = await command("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+  await writeFile(path.join(artifacts, "home-reviews-393.png"), Buffer.from(reviewShot.data, "base64"));
+  await evaluate(`document.querySelector('button[aria-label="Next reviews"]')?.click()`);
+  await delay(650);
+  const reviewScroll = await evaluate(`document.querySelector('[aria-label="Vidyam Google reviews"]')?.scrollLeft`);
+  assert(Number(reviewScroll) > 10, "Review carousel did not move to the next card");
+
+  await command("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+  await command("Page.navigate", { url: origin + "/" });
+  let reducedMotionOpacity;
+  let reducedExpand;
+  for (let attempt = 0; attempt < 24; attempt++) {
+    await delay(250);
+    reducedMotionOpacity = await evaluate(`getComputedStyle(document.querySelector('h1')?.closest('[data-reveal]')).opacity`);
+    reducedExpand = await evaluate(`document.querySelector('section[aria-label="Home tuition in Mumbai"] [class*="clip-path"]')?.style.clipPath`);
+    if (Number(reducedMotionOpacity) > 0.95 && reducedExpand?.startsWith("inset(0% 0%")) break;
+  }
+  assert(Number(reducedMotionOpacity) > 0.95, `Reduced motion should show content immediately; got ${reducedMotionOpacity}`);
+  assert(reducedExpand === "inset(0%)" || reducedExpand?.startsWith("inset(0% 0%"), `Reduced motion should show the expanded image immediately; got ${reducedExpand}`);
+  console.log(JSON.stringify({ results: results.map(({ page, width, heading, overflow, brokenImages }) => ({ page, width, heading, overflow, brokenImages })), mobileMenu: menu, scrollReveal: { before: revealBefore, after: revealAfter, reducedMotionOpacity }, scrollExpand: { before: expandBefore, after: expandAfter, reducedMotion: reducedExpand }, reviewScroll, screenshots: artifacts }, null, 2));
 } finally {
   socket?.close();
   browser.kill();

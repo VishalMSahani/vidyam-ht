@@ -25,3 +25,9 @@ for (const name of files) {
   assert(width >= (largeFiles.has(name) ? 1200 : 500) && height >= 300, `${name} is too small to display cleanly`);
   console.log(`${name}: ${width}×${height}, ${(info.size / 1024).toFixed(1)} KiB`);
 }
+
+const scrollAsset = path.resolve("public/images/scroll-mumbai.webp");
+const [scrollData, scrollInfo] = await Promise.all([readFile(scrollAsset), stat(scrollAsset)]);
+assert(scrollData.toString("ascii", 0, 4) === "RIFF" && scrollData.toString("ascii", 8, 12) === "WEBP", "scroll-mumbai.webp must be WebP");
+assert(scrollInfo.size <= 800 * 1024, `scroll-mumbai.webp must be at most 800 KiB (got ${scrollInfo.size} bytes)`);
+console.log(`scroll-mumbai.webp: ${(scrollInfo.size / 1024).toFixed(1)} KiB`);

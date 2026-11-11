@@ -2,6 +2,14 @@
 
 A four-page, responsive website built with Next.js static export, Tailwind CSS v4, and installed BoardUI components. The generated output is in `out/`.
 
+Sections use Motion to fade in and rise slightly when they enter the viewport. The animation runs once per section and is disabled when the visitor prefers reduced motion.
+
+The home page also uses source-owned React Bits components: Fold Text for the main heading, Curved Loop for the learning divider, and Spotlight Card for the benefit images. Their source lives in `components/` and has been tuned to the site's semantic colors and compact spacing. The React Bits registry is configured in `components.json`; the shadcn MCP server is configured in the workspace `.codex/config.toml` and loads when Codex restarts.
+
+Additional home-page motion uses Animated Content for the getting-started steps and reviews, Scroll Expand for a Mumbai tuition scene, and Text Loop just above the footer. The review cards quote the Google review screenshots supplied for this project; they are static selections, not a live review feed.
+
+The Scroll Expand scene is an original generated illustration, exported as a 1600 × 900 WebP at about 318 KiB in `public/images/scroll-mumbai.webp`.
+
 ## Run locally
 
 ```bash

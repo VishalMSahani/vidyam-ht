@@ -6,6 +6,13 @@ import { Accordion, AccordionItem } from "@/components/base/accordion/accordion"
 import { SectionHeading } from "@/components/section-heading";
 import { TrialCta } from "@/components/trial-cta";
 import { Reveal } from "@/components/reveal";
+import FoldText from "@/components/FoldText";
+import CurvedLoop from "@/components/CurvedLoop";
+import SpotlightCard from "@/components/SpotlightCard";
+import AnimatedContent from "@/components/AnimatedContent";
+import ScrollExpand from "@/components/ScrollExpand";
+import TextLoop from "@/components/TextLoop";
+import { HomeReviews } from "@/components/home-reviews";
 
 const benefits = [
   {
@@ -47,7 +54,18 @@ export default function HomePage() {
             <p className="text-caption-1-semibold uppercase tracking-widest text-accent-700">Home tuition, thoughtfully matched</p>
           </div>
           <h1 className="max-w-2xl text-display-3-medium text-text-primary sm:text-display-2-medium xl:text-display-1-medium">
-            A calmer way to learn, right at home.
+            <FoldText
+              text="A calmer way to learn, right at home."
+              splitBy="word"
+              trigger="mount"
+              duration={0.48}
+              stagger={0.055}
+              foldAngle={52}
+              creaseShading={0.1}
+              fontSize="inherit"
+              fontWeight="inherit"
+              className="leading-[inherit] tracking-[inherit]"
+            />
           </h1>
           <p className="max-w-lg text-body-2-regular text-text-secondary">
             Personal support for school subjects and entrance exams, with a teacher who can focus on your child’s questions.
@@ -76,6 +94,22 @@ export default function HomePage() {
         </Reveal>
       </section>
 
+      <section aria-label="Learning at home" className="overflow-hidden border-y border-separator-border bg-background-primary-default text-text-secondary">
+        <CurvedLoop
+          marqueeText="Space to ask, time to understand"
+          separator="✦"
+          separatorColor="var(--color-accent-600)"
+          shape="wave"
+          curveAmount={12}
+          fontSize={34}
+          fontWeight={500}
+          letterSpacing={0.6}
+          speed={0.32}
+          pauseOnHover
+          edgeFade={0.18}
+        />
+      </section>
+
       <section className="border-y border-separator-border bg-background-primary-default">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-9 sm:grid-cols-3 sm:px-8 lg:px-12">
           <Reveal><p className="text-title-3-semibold text-accent-700">School years</p><p className="mt-1 text-body-regular text-text-secondary">Nursery through class 12</p></Reveal>
@@ -89,7 +123,8 @@ export default function HomePage() {
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {benefits.map((benefit, index) => (
             <Reveal key={benefit.number} delay={index * 0.08} className="h-full">
-            <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-border-button-default bg-background-primary-default">
+            <article className="h-full">
+            <SpotlightCard theme="light" spotlightColor="var(--color-accent-500)" intensity={0.12} borderGlow={0.42} flare={false} className="flex h-full flex-col border border-border-button-default">
               <Image src={benefit.image} alt={benefit.imageAlt} width={benefit.width} height={benefit.height} sizes="(max-width: 767px) 100vw, 33vw" className="aspect-[16/9] w-full object-cover" />
               <div className="flex flex-1 flex-col gap-4 p-7 sm:p-8">
                 <span className="text-caption-1-semibold text-accent-600">{benefit.number}</span>
@@ -98,6 +133,7 @@ export default function HomePage() {
                   <p className="text-body-regular text-text-secondary">{benefit.text}</p>
                 </div>
               </div>
+            </SpotlightCard>
             </article>
             </Reveal>
           ))}
@@ -124,7 +160,7 @@ export default function HomePage() {
       <section className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal><SectionHeading eyebrow="Getting started" title="A simple first conversation." description="Share the class, subjects and the areas that feel difficult. We’ll talk through what kind of support may fit." /></Reveal>
-          <Reveal className="divide-y divide-separator-border border-t border-separator-border" delay={0.08}>
+          <AnimatedContent distance={18} duration={0.4} stagger={0.08} scale={0.98} blur={1} threshold={0.15} className="divide-y divide-separator-border border-t border-separator-border">
             {[
               ["01", "Tell us about your learner", "Let us know the class, board, subjects and exam goals, if any."],
               ["02", "Discuss the right fit", "We’ll talk about the schedule and a teacher suited to the subject."],
@@ -135,9 +171,35 @@ export default function HomePage() {
                 <div className="flex flex-col gap-2"><h3 className="text-title-3-semibold text-text-primary">{title}</h3><p className="text-body-regular text-text-secondary">{text}</p></div>
               </div>
             ))}
-          </Reveal>
+          </AnimatedContent>
         </div>
       </section>
+
+      <section aria-label="Home tuition in Mumbai" className="bg-background-primary-default">
+        <ScrollExpand
+          src="/images/scroll-mumbai.webp"
+          alt="A male tutor listens to a student during a lesson at home in Mumbai"
+          useWindowScroll
+          startWidth={82}
+          startHeight={76}
+          endRadius={0}
+          mediaZoom={1.08}
+          scrollDistance={0.42}
+          holdDistance={0.02}
+          smoothing={0.07}
+          overlayScrim={0.65}
+          className="min-h-[70svh]"
+        >
+          <div className="flex max-w-2xl flex-col items-center gap-3 text-text-white">
+            <p className="text-caption-1-semibold uppercase tracking-widest">Learning at home</p>
+            <p className="text-display-4-medium md:text-display-3-medium">Where questions get the time they need.</p>
+          </div>
+        </ScrollExpand>
+      </section>
+
+      <AnimatedContent distance={16} duration={0.4} scale={0.98} blur={1} threshold={0.1}>
+        <HomeReviews />
+      </AnimatedContent>
 
       <section className="bg-background-primary-default py-20 lg:py-24">
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20 lg:px-12">
@@ -152,6 +214,22 @@ export default function HomePage() {
       </section>
 
       <Reveal className="pt-20 lg:pt-28"><TrialCta /></Reveal>
+
+      <section aria-label="Vidyam learning message" className="overflow-hidden border-t border-separator-border bg-background-primary-default">
+        <TextLoop
+          text="Learn in a way that fits your child"
+          shape="line"
+          ribbon={false}
+          fontSize={42}
+          fontWeight={500}
+          letterSpacing={1}
+          uppercase={false}
+          color="var(--color-text-secondary)"
+          speed={22}
+          edgeFade={0.2}
+          draggable
+        />
+      </section>
     </>
   );
 }

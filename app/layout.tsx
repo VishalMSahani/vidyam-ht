@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className="h-full scroll-smooth antialiased">
+    <html lang="en-IN" className="h-full scroll-smooth motion-reduce:scroll-auto antialiased">
       <body className="flex min-h-screen flex-col overflow-x-hidden font-sans">
         <a
           href="#main-content"

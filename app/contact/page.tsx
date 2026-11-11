@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
+import { Reveal } from "@/components/reveal";
 
 export const metadata: Metadata = {
   title: "Contact us",
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <section className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20 lg:px-12 lg:py-24">
-      <div className="flex flex-col items-start gap-8">
+      <Reveal className="flex flex-col items-start gap-8">
         <div className="flex flex-col gap-6">
           <p className="text-caption-1-semibold uppercase tracking-widest text-accent-700">Contact us</p>
           <h1 className="text-display-3-medium text-text-primary sm:text-display-2-medium">Let’s talk about your child’s learning.</h1>
@@ -20,8 +21,8 @@ export default function ContactPage() {
           <div className="flex flex-col gap-2"><p className="text-caption-1-semibold uppercase tracking-widest text-text-tertiary">Email us</p><a href="mailto:info@vidyamhometuition.in" className="break-all text-body-medium text-accent-700 hover:underline">info@vidyamhometuition.in</a></div>
         </div>
         <p className="rounded-2xl bg-accent-50 p-5 text-body-regular text-text-secondary">Free trials are available. Ask us about the subject and a suitable time when you get in touch.</p>
-      </div>
-      <ContactForm />
+      </Reveal>
+      <Reveal delay={0.08}><ContactForm /></Reveal>
     </section>
   );
 }
